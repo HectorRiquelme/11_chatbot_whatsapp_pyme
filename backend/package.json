@@ -1,0 +1,20 @@
+{
+  "name": "chatbot-whatsapp-pyme-backend",
+  "version": "1.0.0",
+  "description": "Backend del chatbot de WhatsApp para PyMEs con IA",
+  "main": "src/server.js",
+  "author": "Hector Riquelme <HectorRiquelme@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "better-sqlite3": "^11.0.0",
+    "axios": "^1.7.0",
+    "nodemailer": "^6.9.0",
+    "dotenv": "^16.4.0"
+  }
+}
