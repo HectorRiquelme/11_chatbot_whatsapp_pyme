@@ -6,7 +6,7 @@ Chatbot inteligente para WhatsApp Business con panel de administración. Respond
 
 - **Backend:** Node.js + Express + SQLite (better-sqlite3)
 - **Frontend:** React + Vite + Tailwind CSS
-- **IA:** API de Anthropic para generación de respuestas
+- **IA:** API de OpenAI (GPT-4o) para generación de respuestas
 - **Mensajería:** WhatsApp Business Cloud API de Meta
 - **Notificaciones:** Nodemailer (SMTP)
 
@@ -14,7 +14,7 @@ Chatbot inteligente para WhatsApp Business con panel de administración. Respond
 
 - Node.js 18+
 - Cuenta de WhatsApp Business con Cloud API configurada en Meta for Developers
-- API key de Anthropic
+- API key de OpenAI
 - Servidor SMTP para notificaciones por email
 
 ## Instalación

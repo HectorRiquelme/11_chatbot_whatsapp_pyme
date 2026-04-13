@@ -1,7 +1,7 @@
 const axios = require('axios');
 const db = require('../db');
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
+const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
 
 /**
  * Obtiene el system prompt configurado desde la base de datos
@@ -27,7 +27,7 @@ function obtenerHistorial(conversacionId, limite = 10) {
 }
 
 /**
- * Envía mensaje a la API de Anthropic y obtiene respuesta
+ * Envía mensaje a la API de OpenAI y obtiene respuesta
  */
 async function generarRespuesta(conversacionId, mensajeUsuario) {
   const systemPrompt = obtenerSystemPrompt();
@@ -55,24 +55,28 @@ async function generarRespuesta(conversacionId, mensajeUsuario) {
     messagesFiltrados.push({ role: 'user', content: mensajeUsuario });
   }
 
+  // Agregar system prompt al inicio
+  const allMessages = [
+    { role: 'system', content: systemPrompt },
+    ...messagesFiltrados
+  ];
+
   try {
-    const response = await axios.post(ANTHROPIC_API_URL, {
-      model: 'claude-sonnet-4-20250514',
+    const response = await axios.post(OPENAI_API_URL, {
+      model: 'gpt-4o',
       max_tokens: 1024,
-      system: systemPrompt,
-      messages: messagesFiltrados
+      messages: allMessages
     }, {
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       }
     });
 
-    const textoRespuesta = response.data.content[0].text;
+    const textoRespuesta = response.data.choices[0].message.content;
     return textoRespuesta;
   } catch (error) {
-    console.error('Error al llamar a Anthropic:', error.response?.data || error.message);
+    console.error('Error al llamar a OpenAI:', error.response?.data || error.message);
     return 'Lo siento, estoy teniendo dificultades técnicas. Por favor intenta de nuevo en unos momentos.';
   }
 }

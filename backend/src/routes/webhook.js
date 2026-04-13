@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const db = require('../db');
 const { parsearPayload, enviarMensaje } = require('../services/whatsapp');
-const { generarRespuesta } = require('../services/anthropic');
+const { generarRespuesta } = require('../services/openai');
 const { detectarEscalamiento, procesarEscalamiento, RESPUESTA_ESCALAMIENTO } = require('../services/escalamiento');
 
 const router = Router();
